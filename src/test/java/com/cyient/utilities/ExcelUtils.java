@@ -1,4 +1,4 @@
-package com.cyient.test;
+package com.cyient.utilities;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,25 +9,21 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class DemoTest {
+public class ExcelUtils {
 
-	public static void main(String[] args) throws IOException {
-
-		FileInputStream file = new FileInputStream("src/test/resources/testdata/openEMRData.xlsx");
+	public static Object[][] sheetIntoObjectArray(String filePath, String sheetName) throws IOException {
+		FileInputStream file = new FileInputStream(filePath);
 
 		XSSFWorkbook book = new XSSFWorkbook(file);
 
-		XSSFSheet sheet = book.getSheet("validCredentialTest");
+		XSSFSheet sheet = book.getSheet(sheetName);
 
 		int rowCount = sheet.getPhysicalNumberOfRows();
 		System.out.println(rowCount);
 		int cellCount = sheet.getRow(0).getPhysicalNumberOfCells();
 		System.out.println(cellCount);
-		/*
-		 * String cellValue = cell.getStringCellValue(); System.out.println(cellValue);
-		 */
 
-		Object[][] main = new Object[rowCount-1][cellCount];
+		Object[][] main = new Object[rowCount - 1][cellCount];
 
 		for (int i = 1; i < rowCount; i++) {
 			for (int j = 0; j < cellCount; j++) {
@@ -35,15 +31,13 @@ public class DemoTest {
 				XSSFCell cell = row.getCell(j);
 				DataFormatter format = new DataFormatter();
 				String cellValue = format.formatCellValue(cell);
-				// System.out.println(cellValue);
+				System.out.println(cellValue);
 
 				main[i - 1][j] = cellValue;
-				System.out.println(main[i][j]);
+				
 			}
 		}
-		/*
-		 * System.out.println(main[0][0]); System.out.println(main[1][2]);
-		 */
-	}
 
+		return main;
+	}
 }

@@ -26,7 +26,7 @@ public class LoginTest extends WebDriverWrapper {
 
 	// create dataProvider and connect with validCredential test method
 
-	@Test(dataProvider = "validCredentialData", dataProviderClass = DataProviderUtils.class)
+	@Test(dataProvider = "validCredentialExcelData", dataProviderClass = DataProviderUtils.class)
 	public void validCredentialTest(String username, String password, String languageText, String expectedValue) {
 
 		LoginPage login = new LoginPage(driver);
